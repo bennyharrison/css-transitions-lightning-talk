@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name=" viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+        <style>
+            * { box-sizing:border-box; }
+            html { height:100%; }
+            body { height:100%; margin:0; background: -webkit-linear-gradient(top, #000 0%,#444 100%); font-family:sans-serif; overflow:hidden;
+                -webkit-perspective: 500px;
+            }
+            h1 { font-weight:normal; margin:0.3em; }
+            h3 { color:#eee; margin:0.1em 0; }
+            super { vertical-align:super; font-size:0.5em; }
+            a { color:white; }
+
+            #preso-box { position:absolute; top:10%; bottom:10%; width:100%; padding:1%; -webkit-transform:translate3d(0, 0, 0);
+                -webkit-transition:all 1s ease-in-out;
+                -webkit-perspective: 1500px;
+                /*-webkit-perspective-origin: 0% 50%;*/
+            }
+            .show-demo #preso-box { -webkit-transform:translate3d(0, 0, -10000px); opacity:0; z-index:-1; }
+            /*#preso-box section { position:absolute; height:100%; left:15%; right:15%; padding:3% 5%; background-color:#005b8b; color:#fafafa; font-size: 3vw;*/
+            #preso-box section { position:absolute; height:100%; left:15%; right:15%; padding:3% 5%; background-color:#005b8b; color:#fafafa; font-size: 3.8vh;
+                -webkit-transition:-webkit-transform 500ms ease-in-out;
+            }
+            #preso-box section ul { margin:0; }
+            #preso-box section li { opacity:0; -webkit-transition:all 250ms; line-height:1.6; }
+            #preso-box section li.show { opacity:1; }
+            #preso-box section li span { font-size:0.8em; font-family:monospace; }
+
+            #preso-box section:nth-child(2) { background-color:#08b491; }
+            #preso-box section:nth-child(3) { background-color:#d44a3b; }
+            #preso-box section:nth-child(4) { background-color:#870c7f; }
+            #preso-box section:nth-child(5) { background-color:#EE5500; }
+            #preso-box section:nth-child(6) { background-color:#666666; }
+
+            #preso-box section,
+            #preso-box section.out-right { display:block; -webkit-transform:rotateY(-90deg) translate3d(50%, 0, -42vw); }
+            #preso-box section.out-left { display:block; -webkit-transform:rotateY(90deg) translate3d(-50%, 0, -42vw); }
+            #preso-box section.active { display:block; -webkit-transform:rotateY(0) translate3d(0, 0, 0); }
+
+            #preso-box section:not(.out-left):nth-child(1) { z-index:-1; }
+            #preso-box section:not(.out-left):nth-child(2) { z-index:-2; }
+            #preso-box section:not(.out-left):nth-child(3) { z-index:-3; }
+            #preso-box section:not(.out-left):nth-child(4) { z-index:-4; }
+            #preso-box section:not(.out-left):nth-child(5) { z-index:-5; }
+            #preso-box section:not(.out-left):nth-child(6) { z-index:-6; }
+
+            p.que { font-size:80%; color:#ddd; }
+
+            #demo-box { position:absolute; top:5%; bottom:5%; width:100%; padding:0; -webkit-transition:all 1s ease-in-out; -webkit-transform:translate3d(0, 10000px, -10000px); z-index:-1; }
+            .show-demo #demo-box { -webkit-transform:translate3d(0, 0, 0); }
+
+            #demo-area { height:400px; width:200px; padding-top:100px; float:left;
+                -webkit-transition:all 1s ease-in-out;
+                -webkit-perspective: 500px;
+                -webkit-perspective-origin: 50% 50%;
+            }
+            #demo { height:100px; width:100px; padding:20px; margin:0 auto; background-color:#EE4444; color:#eee; -webkit-transition:all 1s ease-in-out; }
+
+            #demo-controls { padding:30px; width:800px; float:left; overflow:auto; }
+            #demo-controls button { float:right; padding:0.5em 1em; margin:0 0 0.5em 0.5em; border:none; background-color:#d44a3b; color:white; font-weight:bold; }
+            .sbs { float:left; width:350px; }
+                /* Radios to sliders plugin : http://rubentd.com/radios-to-slider/ */
+            .radios-to-slider{background-color:#e0e0e0;display:block;position:relative;margin-bottom:50px; -webkit-box-sizing:content-box;-moz-box-sizing:content-box;-o-box-sizing:content-box;box-sizing:content-box;}.radios-to-slider.medium{height:22px;-webkit-border-radius:25px;-moz-border-radius:25px;-o-border-radius:25px;border-radius:25px;padding:5px}.radios-to-slider .slider-level{background-color:#fff;cursor:pointer;position:absolute;display:block}.radios-to-slider .slider-level.slider-lower-level{opacity:.2}.radios-to-slider.medium .slider-level{width:22px;height:22px;-webkit-border-radius:22px;-moz-border-radius:22px;-o-border-radius:22px;border-radius:22px;z-index:2}.slider-label{position:absolute;display:block;cursor:pointer;color:#ddd;text-align:center}.radios-to-slider.medium .slider-label{top:40px;width:44px}.radios-to-slider .slider-bar{background-color:#00b4f1;float:left;height:100%;width:0;pointer-events:none;display:none;position:absolute;left:0;top:0}.slider-bar.transition-enabled{-webkit-transition:.2s;-moz-transition:.2s;-o-transition:.2s;transition:.2s}.radios-to-slider.medium .slider-bar{-webkit-border-radius:22px;-moz-border-radius:22px;-o-border-radius:22px;border-radius:22px}.slider-knob{float:right;background-color:#0977b5}.radios-to-slider.medium .slider-knob{width:32px;height:32px;-webkit-border-radius:25px;-moz-border-radius:25px;-o-border-radius:25px;border-radius:25px}
+        </style>
+    </head>
+    <body>
+        <div id="preso-box">
+            <section class="active">
+                <h1>CSS transitions: the 3rd dimension!</h1>
+                <p class="que">What's this then? These slides were built for a 5 minute lightning talk at SydCSS. Press the 'down' key to reveal slide details, 'left'/'right' to change slides and 'd' to zoom to the live demo. See the related video <a href="https://www.youtube.com/watch?v=5uW3TVC0smM">here</a>.</p>
+                <ul>
+                    <li>I'm Ben Harrison</li>
+                    <li>I work for social startup <a href="http://kweo.com">Kweo</a></li>
+                    <li>we make comment and poll widgets</li>
+                </ul>
+            </section>
+            <section>
+                <h1>What are CSS transitions anyway?</h1>
+                <ul>
+                    <li>moving stuff... with CSS</li>
+                    <li>for performance and simplicity</li>
+                    <li>compatible with all<super>[*†‡Δ]</super> modern browsers</li>
+                    <li>this presentation is built with 3D transitions</li>
+                </ul>
+            </section>
+            <section>
+                <h1>Ok, but how?</h1>
+                <ul>
+                    <li><span>transform</span>
+                        <ul>
+                            <li><span>translateX(10px)</span> <span>translateY(50%)</span> <span>scale()</span>
+                                <ul><li>% values are based on node</li></ul>
+                            </li>
+                            <li><span>rotateX/Y/Z(45deg)</span> <span>translateZ(100px)</span>
+                                <ul><li>distinct from z-index!</li></ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><span>perspective:500px;</span> <span>perspective-offset:50% 50%;</span></li>
+                    <li><span>transition:transform 250ms linear;</span></li>
+                    <li>prefix all the things!</li>
+                </ul>
+            </section>
+            <section>
+                <h1>One weird trick</h1>
+                <ul>
+                    <li><span>translate3d(x,y,z)</span> isn't only good for 3d transitions</li>
+                    <li>it forces the animation to run on the GPU</li>
+                    <li>alternatively: <span>translateZ(0)</span></li>
+                    <li>...meaning better and faster animations</li>
+                    <li>native developers hate them!</li>
+                </ul>
+            </section>
+            <section>
+                <h1>So what's it good for?</h1>
+                <ul>
+                    <li>building cubes</li>
+                    <li>re-inventing powerpoint (poorly)</li>
+                    <li>page/gallery transitions</li>
+                    <li>modals</li>
+                    <li>3D/VR UIs</li>
+                </ul>
+            </section>
+        </div>
+
+        <div id="demo-box">
+            <div id="demo-area">
+                <div id="demo">Demo container</div>
+            </div>
+            <div id="demo-controls">
+                <button id="go">GO!</button>
+                <button id="reset">RESET!</button>
+                <h3>Perspective</h3>
+                <div id="perspective" data-slider="0,1,5,10,50,100,*500,1000"></div>
+                <h3>Opacity</h3>
+                <div id="opacity" data-slider="*1,0"></div>
+                <h3>Rotate X</h3>
+                <div id="rotate-x" data-slider="-180,-90,-60,-45,-30,*0,30,45,60,90,180"></div>
+                <h3>Rotate Y</h3>
+                <div id="rotate-y" data-slider="-180,-90,-60,-45,-30,*0,30,45,60,90,180"></div>
+                <h3>Rotate Z</h3>
+                <div id="rotate-z" data-slider="-180,-90,-60,-45,-30,*0,30,45,60,90,180"></div>
+                <div class="sbs">
+                    <h3>Translate X</h3>
+                    <div id="translate-x" data-slider="-100,-50,*0,50,100"></div>
+                </div>
+                <div class="sbs">
+                    <h3>Translate Y</h3>
+                    <div id="translate-y" data-slider="-100,-50,*0,50,100"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+        <script src="./js/vendor/jquery-1.10.2.min.js"></script>
+        <script>
+            $(function() {
+                $(document).keydown(function(e) {
+                    console.log(e.keyCode);
+                    var $active = $("section.active");
+
+                    if(e.keyCode == 39) { /* right */
+                        if($active.next().size() > 0) {
+                            $active.addClass("out-left").removeClass("active");
+                            $active.next().addClass("active").removeClass("out-right");
+                        }
+                    }
+
+                    if(e.keyCode == 37) { /* left */
+                        if($active.prev().size() > 0) {
+                            $active.addClass("out-right").removeClass("active");
+                            $active.prev().addClass("active").removeClass("out-left");
+                        }
+                    }
+                    if(e.keyCode == 40) { /* down */
+                        console.log($active.find("li:not(.show)"));
+                        $active.find("li:not(.show)").first().addClass("show");
+                    }
+                    if(e.keyCode == 68) { /* 'd' */
+                        $("body").toggleClass("show-demo");
+                    }
+                })
+
+                /**
+                 * DEMO CODE
+                 */
+                var $radios = $("[data-slider]")
+                        , $demo = $("#demo")
+                        ;
+
+                $("[data-slider]").each(function() {
+                    var $this = $(this)
+                            , id = $this.attr("id")
+                            , values = $this.data("slider").split(",")
+                            ;
+
+                    for(var i = 0; i < values.length; i++) {
+                        var val = values[i]
+                                , def = false;
+
+                        if(val.indexOf("*") == 0) {
+                            val = val.substr(1);
+                            def = true;
+                        }
+
+                        $this.append('<input name="'+id+'" id="'+id+'-'+val+'" value="'+val+'" type="radio"'+(def?' checked':'')+'><label for="'+id+'-'+val+'">'+val+'</label>');
+                    }
+                })
+
+                $radios.radiosToSlider();
+                $radios.show();
+
+                $("[name=rotate-x]").change(function() { console.log("changed", $(this).val()); });
+                $("#go").click(function() {
+                    $demo.css("-webkit-transform",
+                                "translateX("+$("[name=translate-x]:checked").val()+"px) "+
+                                "translateY("+$("[name=translate-y]:checked").val()+"px) "+
+                                "rotateX("+$("[name=rotate-x]:checked").val()+"deg) "+
+                                "rotateY("+$("[name=rotate-y]:checked").val()+"deg) "+
+                                "rotateZ("+$("[name=rotate-z]:checked").val()+"deg) "
+                    ).css("opacity", $("[name=opacity]:checked").val());
+
+                    $demo.parent().css("-webkit-perspective", $("[name=perspective]:checked").val()+"px");
+                });
+
+                $("#reset").click(function() {
+                    $("[checked]").prop("checked", true).change();
+                });
+            });
+
+            // radios to sliders plugin : http://rubentd.com/radios-to-slider/
+            (function(e){var f=44;var g=22;var d=50;var a=32;var c=40;function b(i,h){this.bearer=i;this.options=h;this.currentLevel=0}b.prototype={activate:function(){this.numOptions=this.bearer.find("input[type=radio]").length;this.addBaseStyle();this.addLevels();this.addBar();this.setSlider();this.addInteraction()},addBaseStyle:function(){this.bearer.find("input[type=radio]").hide();this.bearer.addClass("radios-to-slider");this.bearer.addClass(this.options.size);this.bearer.css("width",(this.numOptions*g)+(this.numOptions-1)*d+"px");var h=0;this.bearer.find("label").each(function(){var i=a/2-(f/2)+h*d+h*g;e(this).addClass("slider-label");e(this).css("left",i+"px");h++})},addLevels:function(){var h=this.bearer;this.bearer.find("input[type=radio]").each(function(){var j=e(this).attr("id");h.append("<ins class='slider-level' data-radio='"+j+"'></ins>")});var i=0;this.bearer.find(".slider-level").each(function(){var j=parseInt(h.css("padding-left").replace("px",""));e(this).css("left",j+(i*d)+(i*g)+"px");i++})},addBar:function(){this.bearer.append("<ins class='slider-bar'><span class='slider-knob'></span></ins>")},setSlider:function(){var i=1;var j=this;this.bearer.find("input[type=radio]").each(function(){var k=e(this).attr("id");if(e(this).prop("checked")){j.bearer.find(".slider-bar").css("display","block");j.bearer.find(".slider-bar").width((i*a)+(i-1)*c+"px");j.currentLevel=i}if(j.options.animation){j.bearer.find(".slider-bar").addClass("transition-enabled")}i++});var h=0;this.bearer.find(".slider-level").each(function(){h++;if(h<j.currentLevel){e(this).show();e(this).addClass("slider-lower-level")}else{if(h==j.currentLevel){e(this).hide()}else{e(this).show();e(this).removeClass("slider-lower-level")}}});var h=0;this.bearer.find(".slider-label").each(function(){h++;if(h==j.currentLevel){e(this).addClass("slider-label-active")}else{e(this).removeClass("slider-label-active")}})},addInteraction:function(){var h=this;this.bearer.find(".slider-level").click(function(){var i=e(this).attr("data-radio");h.bearer.find("#"+i).prop("checked",true);h.setSlider()});this.bearer.find("input[type=radio]").change(function(){h.setSlider()})}};e.fn.radiosToSlider=function(h){this.each(function(){h=e.extend({},e.fn.radiosToSlider.defaults,h);var i=new b(e(this),h);i.activate()})};e.fn.radiosToSlider.defaults={size:"medium",animation:true}})(jQuery);
+
+        </script>
+
+    </body>
+</html>
